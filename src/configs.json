@@ -1,0 +1,78 @@
+{
+  "person": {
+    "sections": [
+      {
+        "id": 1,
+        "name": "Основное"
+      }
+    ],
+    "fields": [
+      {
+        "type": "string",
+        "name": "first_name",
+        "title": "Имя",
+        "value": "",
+        "required": true,
+        "sectionId": 1
+      },
+      {
+        "type": "string",
+        "name": "last_name",
+        "title": "Фамилия",
+        "value": "",
+        "sectionId": 1
+      },
+      {
+        "type": "date",
+        "name": "birthday",
+        "title": "Дата рождения",
+        "value": null,
+        "sectionId": 1
+      },
+      {
+        "type": "select",
+        "name": "position",
+        "title": "Должность",
+        "value": null,
+        "possibleValues": [
+          {
+            "id": 1,
+            "name": "Младший инженер"
+          },
+          {
+            "id": 2,
+            "name": "Старший инженер"
+          }
+        ],
+        "required": true,
+        "sectionId": 1
+      },
+      {
+        "type": "widget",
+        "name": "boss",
+        "title": "Руководитель",
+        "value": null,
+        "required": true,
+        "sectionId": 1
+      }
+    ]
+  },
+  "company": {
+    "sections": [
+      {
+        "id": 1,
+        "name": "Основное"
+      }
+    ],
+    "fields": [
+      {
+        "type": "string",
+        "name": "name",
+        "title": "Название",
+        "value": "",
+        "required": true,
+        "sectionId": 1
+      }
+    ]
+  }
+}
