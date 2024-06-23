@@ -19,7 +19,7 @@ Promise.all([
 
 const log: Ref<string[]> = ref([])
 
-const onSubmit = (name: string, sections) => {
+const onSubmit = (name: string, sections: Section[]) => {
   const values = getSectionsValues(sections)
   console.log('Отправлено значение: ', values)
   log.value.push(JSON.stringify(values))

@@ -1,19 +1,19 @@
 import configs from './configs.json'
 
-export class Field {
+export type Field = {
   type: string
   name: string
   title: string
   value: any
-  possibleValues: []|null
+  possibleValues?: []|null
   required: boolean
   error: string|null
 }
 
-export class Section {
+export type Section = {
   id: number
   title: string
-  fields: Field[] = []
+  fields: Field[]
 }
 
 export const fetchFields = (name: string): Promise<Section[]> => {
@@ -22,19 +22,25 @@ export const fetchFields = (name: string): Promise<Section[]> => {
   const sections: Section[] = []
 
   config.sections.forEach((sectionConfig) => {
-    const section = new Section()
-    section.id = sectionConfig.id
-    section.title = sectionConfig.title
+    const section: Section = {
+      id: sectionConfig.id,
+      title: sectionConfig.title,
+      fields: [],
+    }
     sections.push(section)
   })
   config.fields.forEach((fieldConfig) => {
-    const field = new Field()
-    field.type = fieldConfig.type
-    field.name = fieldConfig.name
-    field.title = fieldConfig.title ?? ''
-    field.value = fieldConfig.value ?? null
-    field.possibleValues = fieldConfig.possibleValues ?? null
-    field.required = fieldConfig.required ?? false
+    const field: Field = {
+      type: fieldConfig.type,
+      name: fieldConfig.name,
+      title: fieldConfig.title,
+      value: fieldConfig.value ?? null,
+      required: fieldConfig.required ?? false,
+      error: null,
+    }
+    if (fieldConfig.hasOwnProperty('possibleValues')) {
+      field.possibleValues = fieldConfig.possibleValues
+    }
     sections.forEach((section: Section) => {
       if (section.id === fieldConfig.sectionId) {
         section.fields.push(field)
@@ -51,8 +57,8 @@ export const fetchFields = (name: string): Promise<Section[]> => {
 
 export const isSectionsValid = (sections: Section[]): boolean => {
   let isValid: boolean = true
-  sections.forEach((section) => {
-    section.fields.forEach((field) => {
+  sections.forEach((section: Section) => {
+    section.fields.forEach((field: Field) => {
       if (field.required) {
         if (!field.value) {
           isValid = false
